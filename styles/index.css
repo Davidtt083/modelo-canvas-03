@@ -1,0 +1,97 @@
+.container {
+    /*background-image: url('mod-canvas.png');*/
+    width: 100%;
+    height: 100vh;
+    background-size: 100%;
+    background-repeat: no-repeat;
+
+}
+.col{
+    max-width: 20%;
+}
+
+.fila-01 {
+    width: 100%;
+    padding-top: 5vh;
+}
+
+.boton-socios-clave {
+    position: relative;
+    transform: translate(-100px, -200px);
+}
+
+#boton{
+    cursor: pointer;
+    border: 1px solid #3498db;
+    background-color: transparent;
+    color: #000000;
+    font-size: 0.5em;
+    width: 3rem;
+    height: 4vh;
+}
+
+.texto-boton{
+    margin-top: -5px;
+    line-height: 1;
+}
+
+#myVideo {
+    position: fixed;
+    right: 0;
+    max-width: 100%;
+    max-height: 80%;
+  }
+
+
+  @media (min-width: 576px) { 
+    .fila-01 {
+        padding-top: 7vh;
+    }
+    #boton{
+        font-size: 0.8em;
+        width: 5rem;
+        height: 5vh;
+    }
+   }
+   @media (min-width: 768px) {
+    .fila-01 {
+        padding-top: 10vh;
+    }
+    #boton{
+        font-size: 0.8em;
+        width: 5rem;
+        height: 5vh;
+    }
+    .col{
+        max-width: 100%;
+    }
+   }
+
+   @media (min-width: 992px) { 
+    .fila-01 {
+        padding-top: 13vh;
+    }
+    #boton{
+        font-size: 1em;
+        width: 8rem;
+        height: 5vh;
+    }
+
+    #myVideo {
+        max-height: 100%;
+      }
+    }
+
+    @media (min-width: 1200px) { 
+        #myVideo {
+            max-height: 85vh;
+            right: 7%;
+          }
+     }
+
+     @media (min-width: 1500px) { 
+        #myVideo {
+            max-height: 100vh;
+            right: 7%;
+          }
+     }
