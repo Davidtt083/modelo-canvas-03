@@ -44,15 +44,18 @@
 			text-align: right;
 		}
 
-		#full_screen{
+		#go-button{
 			background-color: coral;
 			border-radius: 20px;
 			cursor: pointer;
 			position: relative;
 			margin-top: 20px;
 			margin-left: 40px;
-			width: 20%;
+			width: 25%;
+        font-size: 2vw;
 		}
+
+		
 	</style>
 </head>
 
@@ -123,24 +126,66 @@
 				document.getElementsByTagName('head')[0].appendChild(meta);
 			}
 		</script>
-		<div class="content-b"><button id="full_screen"  onclick="document.documentElement.requestFullscreen()">Pantalla completa</button></div>
+		<div class="content-b"><button id="go-button"  onclick="document.documentElement.requestFullscreen()">Pantalla completa</button></div>
 	</div>
 	
 </body>
 <script>
-    // (B) LISTEN TO FULLSCREEN TOGGLE
-    document.addEventListener("fullscreenchange", () => {
-      if (document.fullscreenElement===null) {
-        console.log("Exited fullscreen");
-      } else {
-        console.log("Entered fullscreen");
-      }
-    });
 
-    // (C) ON FULLSCREEN ERROR
-    document.addEventListener("fullscreenerror", (evt) => {
-      console.error(evt);
-    });
-    </script>
+	/* Get into full screen */
+	function GoInFullscreen(element) {
+		if(element.requestFullscreen)
+			element.requestFullscreen();
+		else if(element.mozRequestFullScreen)
+			element.mozRequestFullScreen();
+		else if(element.webkitRequestFullscreen)
+			element.webkitRequestFullscreen();
+		else if(element.msRequestFullscreen)
+			element.msRequestFullscreen();
+	}
+	
+	/* Get out of full screen */
+	function GoOutFullscreen() {
+		if(document.exitFullscreen)
+			document.exitFullscreen();
+		else if(document.mozCancelFullScreen)
+			document.mozCancelFullScreen();
+		else if(document.webkitExitFullscreen)
+			document.webkitExitFullscreen();
+		else if(document.msExitFullscreen)
+			document.msExitFullscreen();
+	}
+	
+	/* Is currently in full screen or not */
+	function IsFullScreenCurrently() {
+		var full_screen_element = document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement || document.msFullscreenElement || null;
+		
+		// If no element is in full-screen
+		if(full_screen_element === null)
+			return false;
+		else
+			return true;
+	}
+	
+	$("#go-button").on('click', function() {
+		if(IsFullScreenCurrently())
+			GoOutFullscreen();
+		else
+			GoInFullscreen($("#element").get(0));
+	});
+	
+	$(document).on('fullscreenchange webkitfullscreenchange mozfullscreenchange MSFullscreenChange', function() {
+		if(IsFullScreenCurrently()) {
+			$("#element span").text('Full Screen Mode Enabled');
+			$("#go-button").text('Disable Full Screen');
+		}
+		else {
+			$("#element span").text('Full Screen Mode Disabled');
+			$("#go-button").text('Enable Full Screen');
+		}
+	});
+	
+	</script>
 
 </html>
+
