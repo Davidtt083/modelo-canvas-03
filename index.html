@@ -141,66 +141,27 @@
 				document.getElementsByTagName('head')[0].appendChild(meta);
 			}
 		</script>
-		<div class="content-b"><button id="go-button" onclick="document.documentElement.requestFullscreen()"><i
+		<div class="content-b"><button id="go-button" onclick="toggleFullScreen()"><i
 			class="fa-solid fa-expand"></i></button></div>
 	</div>
 
 </body>
+
 <script>
+function toggleFullScreen() {
+   var doc = window.document;
+   var docEl = doc.documentElement;
 
-	/* Get into full screen */
-	function GoInFullscreen(element) {
-		if (element.requestFullscreen)
-			element.requestFullscreen();
-		else if (element.mozRequestFullScreen)
-			element.mozRequestFullScreen();
-		else if (element.webkitRequestFullscreen)
-			element.webkitRequestFullscreen();
-		else if (element.msRequestFullscreen)
-			element.msRequestFullscreen();
-	}
+   var requestFullScreen = docEl.requestFullscreen || docEl.mozRequestFullScreen || docEl.webkitRequestFullScreen || docEl.msRequestFullscreen;
+   var cancelFullScreen = doc.exitFullscreen || doc.mozCancelFullScreen || doc.webkitExitFullscreen || doc.msExitFullscreen;
 
-	/* Get out of full screen */
-	function GoOutFullscreen() {
-		if (document.exitFullscreen)
-			document.exitFullscreen();
-		else if (document.mozCancelFullScreen)
-			document.mozCancelFullScreen();
-		else if (document.webkitExitFullscreen)
-			document.webkitExitFullscreen();
-		else if (document.msExitFullscreen)
-			document.msExitFullscreen();
-	}
-
-	/* Is currently in full screen or not */
-	function IsFullScreenCurrently() {
-		var full_screen_element = document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement || document.msFullscreenElement || null;
-
-		// If no element is in full-screen
-		if (full_screen_element === null)
-			return false;
-		else
-			return true;
-	}
-
-	$("#go-button").on('click', function () {
-		if (IsFullScreenCurrently())
-			GoOutFullscreen();
-		else
-			GoInFullscreen($("#element").get(0));
-	});
-
-	$(document).on('fullscreenchange webkitfullscreenchange mozfullscreenchange MSFullscreenChange', function () {
-		if (IsFullScreenCurrently()) {
-			$("#element span").text('Full Screen Mode Enabled');
-			$("#go-button").text('Disable Full Screen');
-		}
-		else {
-			$("#element span").text('Full Screen Mode Disabled');
-			$("#go-button").text('Enable Full Screen');
-		}
-	});
-
+   if(!doc.fullscreenElement && !doc.mozFullScreenElement && !doc.webkitFullscreenElement && !doc.msFullscreenElement) {
+       requestFullScreen.call(docEl);
+   }
+   else {
+       cancelFullScreen.call(doc);
+   }
+}
 </script>
 
 </html>
