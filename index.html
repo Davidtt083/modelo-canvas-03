@@ -3,8 +3,10 @@
 
 <head>
 	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 	<title>modelo canvas</title>
+	<script src="https://kit.fontawesome.com/c4b7d7f020.js" crossorigin="anonymous"></script>
 	<style>
 		html,
 		body {
@@ -38,29 +40,42 @@
 			-ms-interpolation-mode: nearest-neighbor;
 		}
 
-		.content-b{
+		.content-b {
 			position: absolute;
 			width: 100%;
 			text-align: right;
+			transition: all 2s ease;
 		}
 
-		#go-button{
-			background-color: coral;
-			border-radius: 20px;
+		#go-button {
+			background-color:rgba(255, 106, 0, 0.9);
 			cursor: pointer;
 			position: relative;
-			margin-top: 20px;
+			margin-top: 5px;
 			margin-left: 40px;
-			width: 25%;
-        font-size: 2vw;
+			width: 5%;
+			height: 2em;
+			font-size: 2vw;
+			border: 0px;
+			transform: translateX(-1.1em);
+			transition: all 1s ease;
+			
 		}
 
-		
+		#go-button:hover{			
+			width: 5.4%;
+			height: 2.2em;
+			font-size: 2.2vw;
+			background-color:rgba(255, 106, 0, 0.5);
+		}
+		i {
+			color: #FFFF;
+		}
 	</style>
 </head>
 
 <body>
-	
+
 	<div id="gameContainer">
 		<canvas id="unity-canvas" data-pixel-art="false"></canvas>
 		<script src="Build/publish.loader.js"></script>
@@ -126,56 +141,57 @@
 				document.getElementsByTagName('head')[0].appendChild(meta);
 			}
 		</script>
-		<div class="content-b"><button id="go-button"  onclick="document.documentElement.requestFullscreen()">Pantalla completa</button></div>
+		<div class="content-b"><button id="go-button" onclick="document.documentElement.requestFullscreen()"><i
+			class="fa-solid fa-expand"></i></button></div>
 	</div>
-	
+
 </body>
 <script>
 
 	/* Get into full screen */
 	function GoInFullscreen(element) {
-		if(element.requestFullscreen)
+		if (element.requestFullscreen)
 			element.requestFullscreen();
-		else if(element.mozRequestFullScreen)
+		else if (element.mozRequestFullScreen)
 			element.mozRequestFullScreen();
-		else if(element.webkitRequestFullscreen)
+		else if (element.webkitRequestFullscreen)
 			element.webkitRequestFullscreen();
-		else if(element.msRequestFullscreen)
+		else if (element.msRequestFullscreen)
 			element.msRequestFullscreen();
 	}
-	
+
 	/* Get out of full screen */
 	function GoOutFullscreen() {
-		if(document.exitFullscreen)
+		if (document.exitFullscreen)
 			document.exitFullscreen();
-		else if(document.mozCancelFullScreen)
+		else if (document.mozCancelFullScreen)
 			document.mozCancelFullScreen();
-		else if(document.webkitExitFullscreen)
+		else if (document.webkitExitFullscreen)
 			document.webkitExitFullscreen();
-		else if(document.msExitFullscreen)
+		else if (document.msExitFullscreen)
 			document.msExitFullscreen();
 	}
-	
+
 	/* Is currently in full screen or not */
 	function IsFullScreenCurrently() {
 		var full_screen_element = document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement || document.msFullscreenElement || null;
-		
+
 		// If no element is in full-screen
-		if(full_screen_element === null)
+		if (full_screen_element === null)
 			return false;
 		else
 			return true;
 	}
-	
-	$("#go-button").on('click', function() {
-		if(IsFullScreenCurrently())
+
+	$("#go-button").on('click', function () {
+		if (IsFullScreenCurrently())
 			GoOutFullscreen();
 		else
 			GoInFullscreen($("#element").get(0));
 	});
-	
-	$(document).on('fullscreenchange webkitfullscreenchange mozfullscreenchange MSFullscreenChange', function() {
-		if(IsFullScreenCurrently()) {
+
+	$(document).on('fullscreenchange webkitfullscreenchange mozfullscreenchange MSFullscreenChange', function () {
+		if (IsFullScreenCurrently()) {
 			$("#element span").text('Full Screen Mode Enabled');
 			$("#go-button").text('Disable Full Screen');
 		}
@@ -184,8 +200,7 @@
 			$("#go-button").text('Enable Full Screen');
 		}
 	});
-	
-	</script>
+
+</script>
 
 </html>
-
